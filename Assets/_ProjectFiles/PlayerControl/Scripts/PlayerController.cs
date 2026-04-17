@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private CharacterController _chController;
 
     [Header("UpItem")]
-    private BaseItem _curretItem;
+    public BaseItem CurretItem;
     public GameObject PlayerSlot;
     public bool HaveItem;
 
@@ -59,9 +59,12 @@ public class PlayerController : MonoBehaviour
 
     public void PickUpItem(BaseItem item, bool physItem = false)
     {
-        _curretItem = item;
-        _curretItem.MoveItemToSlot(physItem);
-        HaveItem = true;
+        if (!HaveItem)
+        {
+            CurretItem = item;
+            CurretItem.MoveItemToSlot(physItem);
+            HaveItem = true;
+        }
     }
 
     private void OnEnable() => _actions.Player.Enable();

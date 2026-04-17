@@ -33,8 +33,9 @@ public class InteractionController : MonoBehaviour
             {
                 _point.color = _selectColor;
 
-                if (PlayerController.Instance.IsInteractPressed() && !PlayerController.Instance.HaveItem)
+                if (PlayerController.Instance.IsInteractPressed())
                 {
+                    Debug.Log("Попал в: " + interactable.GetType().Name);
                     interactable.Interact();
                 }
 

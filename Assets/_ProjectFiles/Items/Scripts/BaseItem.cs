@@ -5,27 +5,37 @@ public class BaseItem : MonoBehaviour, IInteractable
     [Header("Links")]
     [SerializeField] private ItemData _data;
     [SerializeField] private Rigidbody _rb;
-    [SerializeField] private Collider _coll;
+
+    public Soket MySoket;
 
 
     void Awake()
     {
         _rb = GetComponent<Rigidbody>();
-        _coll = GetComponent<Collider>();
         ItemPhysDisable(false);
     }
 
     public string GetInteractText() => $"[E] Взять {_data.Name}";
 
-    public void Interact() => PlayerController.Instance.PickUpItem(this);
+    public void Interact()
+    {
+        if (MySoket != null)
+        {
+            MySoket.CurretItem = null;
+            MySoket = null;
+        }
+        PlayerController.Instance.PickUpItem(this);
+    }
 
     public void MoveItemToSlot(bool enablePhys)
     {
         ItemPhysDisable(enablePhys);
-        transform.position = PlayerController.Instance.PlayerSlot.transform.position;
-        transform.SetParent(PlayerController.Instance.PlayerSlot.transform);
+                transform.SetParent(PlayerController.Instance.PlayerSlot.transform);
 
-        transform.localScale *= 0.2f;
+        transform.position = PlayerController.Instance.PlayerSlot.transform.position;
+        transform.localRotation = Quaternion.identity;
+
+        transform.localScale = Vector3.one * 0.4f;
     }
 
 
