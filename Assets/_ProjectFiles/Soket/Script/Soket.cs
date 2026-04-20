@@ -4,7 +4,7 @@ public class Soket : MonoBehaviour, IInteractable
 {
     [Header("Links")]
     [HideInInspector] public BaseItem CurretItem;
-    [SerializeField] private Transform _attachPoint;
+    public Transform AttachPoint;
 
 
     public string GetInteractText()
@@ -23,9 +23,9 @@ public class Soket : MonoBehaviour, IInteractable
         {
             CurretItem = PlayerController.Instance.CurretItem;
 
-            CurretItem.transform.SetParent(_attachPoint);
-            CurretItem.transform.position = _attachPoint.position;
-            CurretItem.transform.rotation = Quaternion.identity;
+            CurretItem.transform.SetParent(AttachPoint);
+            CurretItem.transform.position = AttachPoint.position;
+            CurretItem.transform.localRotation = Quaternion.identity;
             CurretItem.transform.localScale = Vector3.one;
 
             CurretItem.MySoket = this;
